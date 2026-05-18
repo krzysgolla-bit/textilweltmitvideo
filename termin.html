@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Termin anfragen – Textilwelt im Viertel Bremen</title>
+  <!-- ERGÄNZT/GEÄNDERT: Externe Google-Fonts-Verbindung entfernt; die Seite nutzt lokale/System-Schriften. -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="topbar">
+<div class="topbar-left">
+<span>📍 Vor dem Steintor 109, 28203 Bremen</span>
+<span>📞 <a href="tel:+4942168465989">0421 68465989</a></span>
+</div>
+<div class="topbar-right">
+<span>Familienbetrieb seit 1992  ·  Mo–Fr 09:30–19:30  ·  Sa 09:00–15:00</span>
+<span>✉ <a href="mailto:textilweltimviertel@gmail.com">textilweltimviertel@gmail.com</a></span>
+</div>
+</div>
+
+<nav>
+<a class="nav-brand" href="index.html">
+<img alt="Textilwelt im Viertel Logo" class="nav-logo-img" src="images/logo.jpg"/>
+<div class="nav-brand-text">
+<div class="nav-brand-name">Textilwelt im Viertel</div>
+<div class="nav-brand-tag">Schneiderei · Wäscherei · Reinigung</div>
+</div>
+</a>
+<ul class="nav-links" id="navLinks">
+<li><a href="index.html">Start</a></li>
+<li><a href="leistungen.html">Leistungen</a></li>
+<li><a href="preise.html">Preise</a></li>
+<li><a href="ueber-uns.html">Über uns</a></li>
+<li><a href="bewertungen.html">Bewertungen</a></li>
+<li><a href="kontakt.html">Kontakt</a></li>
+<li><a href="b2b.html">B2B</a></li>
+<li><a class="nav-ig" href="https://www.instagram.com/textilwelt__bremen" rel="noopener noreferrer" target="_blank">
+<svg fill="currentColor" height="14" viewbox="0 0 24 24" width="14"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"></path></svg>
+      Instagram
+    </a></li>
+<li><a class="nav-cta" href="termin.html">Termin anfragen</a></li>
+</ul>
+<button aria-label="Menü öffnen" class="hamburger" id="hamburger">
+<span></span><span></span><span></span>
+</button>
+</nav>
+<a class="floating-call-btn" href="tel:+4942168465989" aria-label="Textilwelt im Viertel direkt anrufen">📞 Jetzt anrufen</a>
+
+<section id="termin">
+<div class="termin-inner">
+<div class="section-header">
+<div class="s-eyebrow"><div class="s-eyebrow-line"></div><span class="s-eyebrow-text">Jetzt anfragen</span><div class="s-eyebrow-line"></div></div>
+<h2 class="s-title">Terminanfrage</h2>
+<div class="s-divider"></div>
+<p style="color:var(--anthrazit-light);margin-top:1rem;font-size:0.9rem;font-weight:300;">Schreiben Sie uns – wir melden uns schnellstmöglich bei Ihnen!</p>
+</div>
+<form class="termin-form" id="formtorchTerminForm" action="https://formtorch.com/f/dow1j4fmuu" method="POST"> <!-- ERGÄNZT/GEÄNDERT: Formtorch-Endpunkt statt mailto/Backend -->
+<div class="form-row">
+<div class="form-group"><label for="name">Name *</label><input id="name" name="name" placeholder="Max Mustermann" required type="text" autocomplete="name"/></div>
+<div class="form-group"><label for="email">E-Mail *</label><input id="email" name="email" placeholder="max@beispiel.de" required type="email" autocomplete="email"/></div>
+</div>
+<div class="form-row">
+<div class="form-group"><label for="phone">Telefon</label><input id="phone" name="phone" placeholder="+49 421 ..." type="tel" autocomplete="tel"/></div>
+<div class="form-group">
+<label for="service">Leistung *</label>
+<select id="service" name="service" required>
+<option value="">Bitte wählen …</option>
+<option>Änderungsschneiderei</option>
+<option>Textilwäsche</option>
+<option>Textilreinigung</option>
+<option>Teppichreinigung</option>
+<option>B2B / Gewerbekunden</option>
+<option>Mehrere Leistungen</option>
+</select>
+</div>
+</div>
+<div class="form-row">
+<div class="form-group"><label for="date">Wunschdatum</label><input id="date" name="date" type="date"/></div>
+<div class="form-group"><label for="subject">Betreff</label><input id="subject" name="subject" placeholder="Terminanfrage / Anfrage" type="text"/></div>
+</div>
+<div class="form-group"><label for="message">Ihre Nachricht *</label><textarea id="message" name="message" placeholder="Bitte beschreiben Sie kurz, was geändert / gereinigt werden soll …" required></textarea></div>
+<div class="form-group form-privacy">
+  <label style="display:flex;gap:.6rem;align-items:flex-start;text-transform:none;letter-spacing:0;font-weight:400;">
+    <input name="privacy_accepted" required type="checkbox" value="Ja" style="width:auto;margin-top:.2rem;"/>
+    <span>Ich habe die <a href="datenschutz.html">Datenschutzerklärung</a> gelesen und bin damit einverstanden, dass meine Angaben zur Bearbeitung der Anfrage verarbeitet werden. *</span>
+  </label>
+</div>
+<input type="hidden" name="source" value="Website Textilwelt im Viertel"/>
+<button class="btn-submit" type="submit">Terminanfrage absenden</button>
+<p class="form-note">* Pflichtfelder · Die Anfrage wird über Formtorch an uns übermittelt.</p>
+</form>
+</div>
+</section>
+
+<div class="ig-strip" style="margin: 0 -5%; padding: 2.5rem 5%;">
+<div class="ig-inner">
+<p class="ig-text">Folgen Sie uns auf Instagram für Einblicke, Inspirationen und Neuigkeiten aus unserem Atelier</p>
+<a class="ig-btn" href="https://www.instagram.com/textilwelt__bremen?igsh=MTI2Z2M5c3oxbDlyOQ==" rel="noopener noreferrer" target="_blank">
+<svg class="ig-icon" fill="currentColor" height="16" viewbox="0 0 24 24" width="16"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"></path></svg>
+        @textilwelt__bremen auf Instagram
+      </a>
+</div>
+</div>
+<footer>
+<div class="footer-inner">
+<div>
+<img alt="Logo" class="footer-logo-img" src="images/logo.jpg"/>
+<div class="footer-name">Textilwelt im Viertel</div>
+<div class="footer-tagline">Schneiderei · Wäscherei · Reinigung · Bremen</div>
+<p class="footer-desc">Ihr persönlicher Textil-Fachbetrieb im Bremer Viertel. Mit Handwerk und Herzlichkeit sorgen wir dafür, dass Ihre Kleidung immer perfekt sitzt.</p>
+</div>
+<div class="footer-col">
+<h4>Navigation</h4>
+<ul>
+<li><a href="index.html">Startseite</a></li>
+<li><a href="leistungen.html">Leistungen</a></li>
+<li><a href="b2b.html">B2B</a></li>
+<li><a href="preise.html">Preisliste</a></li>
+<li><a href="ueber-uns.html">Über uns</a></li>
+<li><a href="bewertungen.html">Bewertungen</a></li>
+<li><a href="termin.html">Termin anfragen</a></li>
+<li><a href="kontakt.html">Kontakt</a></li>
+</ul>
+</div>
+<div class="footer-col">
+<h4>Kontakt</h4>
+<ul>
+<li><a href="tel:+4942168465989">0421 68465989</a></li>
+<li><a href="mailto:textilweltimviertel@gmail.com">textilweltimviertel@gmail.com</a></li>
+<li><a>Vor dem Steintor 109</a></li>
+<li><a>28203 Bremen</a></li>
+<li><a href="https://www.instagram.com/textilwelt__bremen" rel="noopener noreferrer" target="_blank">Instagram</a></li>
+<li><a href="https://share.google/Qmo998w6ovqWmV89y" rel="noopener noreferrer" target="_blank">Google Maps</a></li>
+</ul>
+</div>
+</div>
+<div class="footer-bottom">
+<span>© 2026 Textilwelt im Viertel <!-- ERGÄNZT/GEÄNDERT --> · Bremen · Alle Rechte vorbehalten</span>
+<div><a href="impressum.html">Impressum</a>  ·  <a href="datenschutz.html">Datenschutz</a></div>
+</div>
+</footer>
+<div id="toast">✓ Anfrage gesendet – wir melden uns bald!</div>
+<!-- ERGÄNZT/GEÄNDERT: Cookie-/Consent-Banner nach § 25 TDDDG; Ablehnen und Akzeptieren sind gleichwertig erreichbar. -->
+<div id="cookieBanner" class="cookie-banner" role="dialog" aria-live="polite" aria-label="Datenschutzeinstellungen" hidden>
+  <div class="cookie-banner-inner">
+    <div>
+      <strong>Datenschutzeinstellungen</strong>
+      <p>Wir verwenden technisch notwendige Funktionen. Externe Inhalte wie Google Maps werden erst nach Ihrer aktiven Zustimmung geladen.</p>
+    </div>
+    <div class="cookie-actions">
+      <button type="button" id="cookieReject" class="cookie-btn cookie-btn-secondary">Ablehnen</button>
+      <button type="button" id="cookieAccept" class="cookie-btn cookie-btn-primary">Akzeptieren</button>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

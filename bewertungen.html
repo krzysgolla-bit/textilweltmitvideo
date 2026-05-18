@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>B2B – Gewerbekunden | Textilwelt im Viertel Bremen</title>
+  <!-- ERGÄNZT/GEÄNDERT: Externe Google-Fonts-Verbindung entfernt; die Seite nutzt lokale/System-Schriften, damit beim Seitenaufruf keine Verbindung zu Google Fonts aufgebaut wird. -->
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* LIGHTBOX */
+    .gallery-grid {
+      max-width:1200px; margin:0 auto;
+      display:grid; grid-template-columns: 1.4fr 1fr 1fr;
+      grid-template-rows: 260px 260px; gap: 1.2rem;
+    }
+    .gallery-item {
+      border-radius:8px; overflow:hidden; position:relative;
+      box-shadow: var(--shadow); cursor:pointer;
+    }
+    .gallery-item:hover img { transform: scale(1.04); }
+    .gallery-item img { width:100%; height:100%; object-fit:cover; display:block; transition: transform 0.4s; }
+    .gallery-item .gallery-caption {
+      position:absolute; bottom:0; left:0; right:0; padding:1rem 1.2rem;
+      background:linear-gradient(transparent, rgba(15,34,24,0.85));
+    }
+    .gallery-item:first-child { grid-row: 1 / 3; }
+    .gallery-item:first-child .gallery-caption { padding:1.2rem 1.5rem; }
+    .gallery-caption-label {
+      color:var(--gold); font-size:0.68rem; letter-spacing:0.15em;
+      text-transform:uppercase; font-weight:600;
+    }
+    .gallery-caption-text {
+      color:var(--white); font-family:'Cormorant Garamond',serif;
+      font-size:0.95rem; margin-top:0.2rem;
+    }
+    .gallery-item:first-child .gallery-caption-text { font-size:1.05rem; }
+
+    /* LIGHTBOX OVERLAY */
+    #lightbox-overlay {
+      display:none; position:fixed; inset:0; z-index:9999;
+      background:rgba(0,0,0,0.92); align-items:center; justify-content:center;
+      flex-direction:column; padding:2rem;
+    }
+    #lightbox-overlay.active { display:flex; }
+    #lightbox-img {
+      max-width:90vw; max-height:80vh; object-fit:contain;
+      border-radius:6px; box-shadow: 0 8px 40px rgba(0,0,0,0.6);
+    }
+    #lightbox-caption {
+      color:rgba(255,255,255,0.8); font-size:0.9rem; margin-top:1rem;
+      font-family:'Cormorant Garamond',serif; font-size:1.1rem;
+      letter-spacing:0.05em;
+    }
+    #lightbox-close {
+      position:fixed; top:1.5rem; right:2rem;
+      background:none; border:none; color:var(--gold-light);
+      font-size:2rem; cursor:pointer; line-height:1; padding:0.3rem;
+      transition: color 0.2s;
+    }
+    #lightbox-close:hover { color:var(--white); }
+
+    /* B2B SECTION */
+    #b2b {
+      background: var(--dg);
+      padding: 5rem 5%;
+    }
+    .b2b-inner {
+      max-width: 1200px; margin: 0 auto;
+    }
+    .b2b-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+    .b2b-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(184,150,62,0.25);
+      border-radius: 8px;
+      padding: 2rem 1.8rem;
+      transition: background 0.3s, border-color 0.3s;
+    }
+    .b2b-card:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: var(--gold);
+    }
+    .b2b-card-icon {
+      font-size: 2.2rem; margin-bottom: 1rem;
+    }
+    .b2b-card-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem; font-weight: 600; color: var(--white);
+      margin-bottom: 0.6rem;
+    }
+    .b2b-card-desc {
+      color: rgba(255,255,255,0.72);
+      font-size: 0.88rem; line-height: 1.7;
+    }
+    .b2b-card-list {
+      list-style: none; margin-top: 1rem;
+    }
+    .b2b-card-list li {
+      color: var(--gold-light); font-size: 0.82rem;
+      padding: 0.25rem 0; display:flex; align-items:center; gap: 0.5rem;
+    }
+    .b2b-card-list li::before { content:"–"; color: var(--gold); }
+    .b2b-cta-block {
+      margin-top: 3rem;
+      background: rgba(184,150,62,0.12);
+      border: 1px solid rgba(184,150,62,0.35);
+      border-radius: 8px;
+      padding: 2rem 2.5rem;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 2rem; flex-wrap: wrap;
+    }
+    .b2b-cta-text {
+      color: rgba(255,255,255,0.9); font-size: 0.95rem; line-height: 1.65;
+      max-width: 560px;
+    }
+    .b2b-cta-text strong {
+      color: var(--gold-light); font-weight: 600;
+    }
+    .btn-gold-outline {
+      display: inline-block;
+      border: 1px solid var(--gold);
+      color: var(--gold-light);
+      padding: 0.7rem 1.8rem;
+      border-radius: 3px;
+      font-size: 0.82rem; letter-spacing: 0.12em;
+      text-transform: uppercase; font-weight: 500;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: background 0.2s, color 0.2s;
+    }
+    .btn-gold-outline:hover {
+      background: var(--gold); color: var(--dg-dark);
+    }
+
+    @media(max-width:768px){
+      .gallery-grid {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto;
+      }
+      .gallery-item:first-child { grid-row: auto; }
+    }
+    @media(max-width:500px){
+      .gallery-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+<div class="topbar">
+<div class="topbar-left">
+<span>📍 Vor dem Steintor 109, 28203 Bremen</span>
+<span>📞 <a href="tel:+4942168465989">0421 68465989</a></span>
+</div>
+<div class="topbar-right">
+<span>Familienbetrieb seit 1992  ·  Mo–Fr 09:30–19:30  ·  Sa 09:00–15:00</span>
+<span>✉ <a href="mailto:textilweltimviertel@gmail.com">textilweltimviertel@gmail.com</a></span>
+</div>
+</div>
+
+<nav>
+<a class="nav-brand" href="index.html">
+<img alt="Textilwelt im Viertel Logo" class="nav-logo-img" src="images/logo.jpg"/>
+<div class="nav-brand-text">
+<div class="nav-brand-name">Textilwelt im Viertel</div>
+<div class="nav-brand-tag">Schneiderei · Wäscherei · Reinigung</div>
+</div>
+</a>
+<ul class="nav-links" id="navLinks">
+<li><a href="index.html">Start</a></li>
+<li><a href="leistungen.html">Leistungen</a></li>
+<li><a href="preise.html">Preise</a></li>
+<li><a href="ueber-uns.html">Über uns</a></li>
+<li><a href="bewertungen.html">Bewertungen</a></li>
+<li><a href="kontakt.html">Kontakt</a></li>
+<li><a href="b2b.html">B2B</a></li>
+<li><a class="nav-ig" href="https://www.instagram.com/textilwelt__bremen" rel="noopener noreferrer" target="_blank"><!-- ERGÄNZT/GEÄNDERT -->
+<svg fill="currentColor" height="14" viewbox="0 0 24 24" width="14"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"></path></svg>
+      Instagram
+    </a></li>
+<li><a class="nav-cta" href="termin.html">Termin anfragen</a></li>
+</ul>
+<button aria-label="Menü öffnen" class="hamburger" id="hamburger">
+<span></span><span></span><span></span>
+</button>
+</nav>
+<a class="floating-call-btn" href="tel:+4942168465989" aria-label="Textilwelt im Viertel direkt anrufen">📞 Jetzt anrufen</a>
+
+
+<section id="b2b">
+<div class="b2b-inner">
+<div class="section-header">
+<div class="s-eyebrow"><div class="s-eyebrow-line"></div><span class="s-eyebrow-text" style="color:var(--gold-light)">Zuverlässiger Partner</span><div class="s-eyebrow-line"></div></div>
+<h2 class="s-title light">B2B – Gewerbe &amp; Unternehmen</h2>
+<div class="s-divider"></div>
+<p style="color:rgba(255,255,255,0.78); margin-top:1.2rem; font-size:0.95rem; line-height:1.75; max-width:680px; margin-left:auto; margin-right:auto; text-align:center;">
+  Neben unseren Privatkunden sind wir ein bewährter Partner für Gewerbetreibende und Unternehmen. Wir bieten regelmäßige, zuverlässige Textilpflege in Mengen, die auf Ihre betrieblichen Bedürfnisse zugeschnitten sind.
+</p>
+</div>
+
+    <div style="background:rgba(184,150,62,0.15); border:1px solid var(--gold); border-radius:8px; padding:1.5rem 2rem; margin-bottom:2.5rem; display:flex; align-items:flex-start; gap:1rem;">
+      <span style="font-size:1.6rem; flex-shrink:0;">✅</span>
+      <div>
+        <div style="color:var(--gold-light); font-weight:600; font-size:0.95rem; margin-bottom:0.4rem; letter-spacing:0.05em;">BESTEHENDE PARTNERSCHAFT</div>
+        <div style="color:rgba(255,255,255,0.9); font-size:0.9rem; line-height:1.7;">
+          Wir arbeiten bereits erfolgreich mit <strong style="color:var(--white);">mehreren Unternehmen im B2B-Bereich</strong> zusammen – 
+          regelmäßige Wäschepflege, zuverlässige Abholung und professionelle Qualität. 
+          Genau das bieten wir auch <em style="color:var(--gold-light);">Ihnen</em>.
+        </div>
+      </div>
+    </div>
+<div class="b2b-grid">
+  <div class="b2b-card">
+    <div class="b2b-card-icon">🍽️</div>
+    <div class="b2b-card-title">Gastronomie</div>
+    <p class="b2b-card-desc">Restaurants, Cafés und Bistros können uns die regelmäßige Pflege ihrer Tischwäsche, Servietten und Uniformen anvertrauen – frisch, sauber und pünktlich.</p>
+    <ul class="b2b-card-list">
+      <li>Tischwäsche &amp; Servietten</li>
+      <li>Kochkleidung &amp; Schürzen</li>
+      <li>Service-Uniformen</li>
+      <li>Regelmäßige Abholtermine</li>
+    </ul>
+  </div>
+  <div class="b2b-card">
+    <div class="b2b-card-icon">🏨</div>
+    <div class="b2b-card-title">Hotels &amp; Pensionen</div>
+    <p class="b2b-card-desc">Für Hotels ist makellose Bettwäsche und Frottee das Aushängeschild. Wir sorgen für professionell gepflegte Wäsche in gleichbleibend hoher Qualität.</p>
+    <ul class="b2b-card-list">
+      <li>Bettwäsche &amp; Handtücher</li>
+      <li>Bademäntel &amp; Frottee</li>
+      <li>Personal-Uniformen</li>
+      <li>Flexible Mengen &amp; Termine</li>
+    </ul>
+  </div>
+  <div class="b2b-card">
+    <div class="b2b-card-icon">🏥</div>
+    <div class="b2b-card-title">Pflegeheime &amp; Sozialeinrichtungen</div>
+    <p class="b2b-card-desc">Altenheime und Pflegeeinrichtungen benötigen besonders sorgfältige und hygienische Wäschepflege. Wir übernehmen diese Verantwortung mit Zuverlässigkeit und Diskretion.</p>
+    <ul class="b2b-card-list">
+      <li>Bewohnerwäsche (beschriftet)</li>
+      <li>Bettwäsche &amp; Handtücher</li>
+      <li>Pflegekleidung &amp; Kittel</li>
+      <li>Regelmäßiger Abholservice</li>
+    </ul>
+  </div>
+  <div class="b2b-card">
+    <div class="b2b-card-icon">🏢</div>
+    <div class="b2b-card-title">Weitere Gewerbe</div>
+    <p class="b2b-card-desc">Friseursalons, Kosmetikstudios, Fitness-Studios – wir sind der richtige Ansprechpartner für alle Unternehmen, die professionelle Textilpflege benötigen.</p>
+    <ul class="b2b-card-list">
+      <li>Salon- &amp; Studio-Wäsche</li>
+      <li>Arbeitskleidung &amp; Berufskleidung</li>
+      <li>Reinigung &amp; Imprägnierung</li>
+      <li>Individuelle Vereinbarungen</li>
+    </ul>
+  </div>
+</div>
+<div class="b2b-cta-block">
+  <div class="b2b-cta-text">
+    <strong>Wir sind offen für weitere B2B-Partner!</strong><br/>
+    Mit mehreren Unternehmen im B2B-Bereich arbeiten wir bereits erfolgreich zusammen – und wir freuen uns, diesen Kreis weiter zu erweitern. Sprechen Sie uns an: Wir erstellen ein individuelles Angebot für Ihren Betrieb, mit regelmäßigen Terminen, fairen Konditionen und persönlicher Betreuung.
+  </div>
+  <a href="termin.html" class="btn-gold-outline">B2B-Anfrage stellen</a>
+</div>
+</div>
+</section>
+
+<div class="ig-strip" style="margin: 0 -5%; padding: 2.5rem 5%;">
+<div class="ig-inner">
+<p class="ig-text">Folgen Sie uns auf Instagram für Einblicke, Inspirationen und Neuigkeiten aus unserem Atelier</p>
+<a class="ig-btn" href="https://www.instagram.com/textilwelt__bremen?igsh=MTI2Z2M5c3oxbDlyOQ==" rel="noopener noreferrer" target="_blank"><!-- ERGÄNZT/GEÄNDERT -->
+<svg class="ig-icon" fill="currentColor" height="16" viewbox="0 0 24 24" width="16"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"></path></svg>
+        @textilwelt__bremen auf Instagram
+      </a>
+</div>
+</div>
+<footer>
+<div class="footer-inner">
+<div>
+<img alt="Logo" class="footer-logo-img" src="images/logo.jpg"/>
+<div class="footer-name">Textilwelt im Viertel</div>
+<div class="footer-tagline">Schneiderei · Wäscherei · Reinigung · Bremen</div>
+<p class="footer-desc">Ihr persönlicher Textil-Fachbetrieb im Bremer Viertel. Mit Handwerk und Herzlichkeit sorgen wir dafür, dass Ihre Kleidung immer perfekt sitzt.</p>
+</div>
+<div class="footer-col">
+<h4>Navigation</h4>
+<ul>
+<li><a href="index.html">Startseite</a></li>
+<li><a href="leistungen.html">Leistungen</a></li>
+<li><a href="b2b.html">B2B</a></li>
+<li><a href="preise.html">Preisliste</a></li>
+<li><a href="ueber-uns.html">Über uns</a></li>
+<li><a href="bewertungen.html">Bewertungen</a></li>
+<li><a href="termin.html">Termin anfragen</a></li>
+<li><a href="kontakt.html">Kontakt</a></li>
+</ul>
+</div>
+<div class="footer-col">
+<h4>Kontakt</h4>
+<ul>
+<li><a href="tel:+4942168465989">0421 68465989</a></li>
+<li><a href="mailto:textilweltimviertel@gmail.com">textilweltimviertel@gmail.com</a></li>
+<li><a>Vor dem Steintor 109</a></li>
+<li><a>28203 Bremen</a></li>
+<li><a href="https://www.instagram.com/textilwelt__bremen" rel="noopener noreferrer" target="_blank"><!-- ERGÄNZT/GEÄNDERT -->Instagram</a></li>
+<li><a href="https://share.google/Qmo998w6ovqWmV89y" rel="noopener noreferrer" target="_blank"><!-- ERGÄNZT/GEÄNDERT -->Google Maps</a></li>
+</ul>
+</div>
+</div>
+<div class="footer-bottom">
+<span>© 2026 Textilwelt im Viertel <!-- ERGÄNZT/GEÄNDERT --> · Bremen · Alle Rechte vorbehalten</span>
+<div><a href="impressum.html">Impressum</a>  ·  <a href="datenschutz.html">Datenschutz</a></div>
+</div>
+</footer>
+<div id="toast">✓ Anfrage gesendet – wir melden uns bald!</div>
+<!-- ERGÄNZT/GEÄNDERT: Cookie-/Consent-Banner nach § 25 TDDDG; Ablehnen und Akzeptieren sind gleichwertig erreichbar. -->
+<div id="cookieBanner" class="cookie-banner" role="dialog" aria-live="polite" aria-label="Datenschutzeinstellungen" hidden>
+  <div class="cookie-banner-inner">
+    <div>
+      <strong>Datenschutzeinstellungen</strong>
+      <p>Wir verwenden technisch notwendige Funktionen. Externe Inhalte wie Google Maps werden erst nach Ihrer aktiven Zustimmung geladen.</p>
+    </div>
+    <div class="cookie-actions">
+      <button type="button" id="cookieReject" class="cookie-btn cookie-btn-secondary">Ablehnen</button>
+      <button type="button" id="cookieAccept" class="cookie-btn cookie-btn-primary">Akzeptieren</button>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+
+</body>
